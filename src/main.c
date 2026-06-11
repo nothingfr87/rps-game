@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-typedef enum { ROCK, PAPER, SCISSOR } choice;
 const char *choices[] = {"Rock", "Paper", "Scissor"};
 
 void checkWinner(choice userChoice, choice computerChoice) {
@@ -18,8 +17,8 @@ void checkWinner(choice userChoice, choice computerChoice) {
 
 int main() {
   srand(time(NULL));
-  choice userChoice = 0;
-  choice computerChoice = 0;
+  int userChoice = 0;
+  int computerChoice = 0;
 
   printf("Rock Paper Scissor Game!\n");
   printf("Begin!\n");
