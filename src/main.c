@@ -2,29 +2,24 @@
 #include <stdlib.h>
 #include <time.h>
 
-void checkWinner(int userChoice, int computerChoice) {
-  if (computerChoice == userChoice) {
+typedef enum { ROCK, PAPER, SCISSOR } choice;
+const char *choices[] = {"Rock", "Paper", "Scissor"};
+
+void checkWinner(choice userChoice, choice computerChoice) {
+  int resultOfGame = (userChoice - computerChoice + 3) % 3;
+  if (resultOfGame == 0) {
     printf("It's a tie!\n");
-  } else if (computerChoice == 0 && userChoice == 2) {
-    printf("Computer Wins! Rock beats Scissor\n");
-  } else if (computerChoice == 1 && userChoice == 0) {
-    printf("Computer Wins! Paper beats Rock\n");
-  } else if (computerChoice == 2 && userChoice == 1) {
-    printf("Computer Wins! Scissor beats Paper\n");
-  } else if (computerChoice == 0 && userChoice == 1) {
-    printf("You Win! Paper beats Rock\n");
-  } else if (computerChoice == 1 && userChoice == 2) {
-    printf("You Win! Scissor beats Paper\n");
-  } else if (computerChoice == 2 && userChoice == 0) {
-    printf("You Win! Rock beats Scissor\n");
+  } else if (resultOfGame == 1) {
+    printf("You Win!\n");
+  } else if (resultOfGame == 2) {
+    printf("Computer Wins!\n");
   }
 }
 
 int main() {
   srand(time(NULL));
-  char choices[][10] = {"Rock", "Paper", "Scissor"};
-  int userChoice = 0;
-  int computerChoice = 0;
+  choice userChoice = 0;
+  choice computerChoice = 0;
 
   printf("Rock Paper Scissor Game!\n");
   printf("Begin!\n");
@@ -35,7 +30,7 @@ int main() {
   printf("Choose an option: ");
   scanf("%d", &userChoice);
 
-  if (userChoice < 1 && userChoice > 3) {
+  if (userChoice < 1 || userChoice > 3) {
     printf("Please Choose an Invalid Choice!\n");
     return 1;
   }
@@ -43,7 +38,7 @@ int main() {
   userChoice -= 1;
   printf("You Chose %s\n", choices[userChoice]);
 
-  computerChoice = ((rand() % (3 - 1 + 1)) + 1) - 1;
+  computerChoice = rand() % 3;
   printf("Computer Chose %s\n", choices[computerChoice]);
 
   checkWinner(userChoice, computerChoice);
